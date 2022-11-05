@@ -5,6 +5,10 @@ const LS = {
 
     set: (key , value) => {
         localStorage.setItem(key , value)
+    },
+
+    delete: (key) => {
+      localStorage.removeItem(key)
     }
 }
 

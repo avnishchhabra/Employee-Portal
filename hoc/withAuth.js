@@ -1,5 +1,6 @@
+
 import { useEffect, useState } from "react";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import Layout from "../layout";
 import Login from "../pages/login";
 import store from "../redux/store";
@@ -13,8 +14,12 @@ const withAuth = (Component) => {
       setToken(LS.get('token'))
     }, []);
 
+  //  const token = useSelector((state) => state.app.jwtToken)
+
     if (!token) {
-      return <Login />;
+      return <Provider store={store}>
+        <Login />
+      </Provider>;
     }
 
     return (

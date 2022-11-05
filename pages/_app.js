@@ -3,6 +3,7 @@ import '../styles/flex.css';
 import '../styles/spacing.css';
 import '../styles/pages/login.css';
 import 'antd/dist/antd.css';
+import '../styles/pages/employeeList.css';
 import withAuth from '../hoc/withAuth';
 import axios from 'axios';
 
