@@ -9,7 +9,7 @@ import {
 import { isMobile } from 'react-device-detect';
 const { Header, Sider, Content } = Layout;
 
-const Index = () => {
+const Index = ({children}) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout>
@@ -43,7 +43,7 @@ const Index = () => {
             minHeight: 280,
           }}
         >
-          Content
+          {children}
         </Content>
       </Layout>
       

@@ -1,5 +1,3 @@
-import withAuth from "../hoc/withAuth"
-
 const Home = () => {
   return (
     <div>
@@ -8,4 +6,4 @@ const Home = () => {
   )
 }
 
-export default withAuth(Home , true)
+export default Home

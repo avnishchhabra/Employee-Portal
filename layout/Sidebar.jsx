@@ -6,12 +6,15 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Avatar, Layout, Menu } from "antd";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 const { Header, Sider, Content } = Layout;
 import { isMobile } from "react-device-detect";
 import SidebarItems from "../utils/SidebarItems";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
+  const router = useRouter()
   return (
     <Sider
       style={{
@@ -37,9 +40,16 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         theme="dark"
         mode="inline"
         defaultSelectedKeys={["1"]}
-        items={SidebarItems}
+        // items={SidebarItems}
         className="mt-sm"
-      />
+      >
+        {SidebarItems.map(item => (
+          <Menu.Item onClick={() => router.push(item.path)} key={item.key} icon={item.icon} title={item.label}>
+            {item.label}
+         </Menu.Item>
+        )
+        )}
+      </Menu>
     </Sider>
   );
 };

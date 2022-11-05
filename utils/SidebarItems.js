@@ -11,23 +11,27 @@ export default [
     key: 1,
     label: "Training",
     icon: <UserOutlined />,
+    path: '/'
   },
   {
     key: 2,
     label: "Performance Score",
     icon: <UserOutlined />,
-    // children: []
+    // children: [],
+    path: '/performance'
   },
   {
     key: 3,
     label: "Hazard",
     icon: <UserOutlined />,
-    // children: []
+    // children: [],
+    path: '/hazard'
   },
   {
     key: 4,
     label: "Grievance",
     icon: <UserOutlined />,
-    // children: []
+    // children: [],
+    path: '/grievance'
   },
 ];
