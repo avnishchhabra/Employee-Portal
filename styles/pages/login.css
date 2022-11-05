@@ -1,0 +1,13 @@
+.loginPageContainer {
+    height: 100vh;
+    background-color: #d48b8b;
+}
+
+.loginPage {
+    width: 60%;
+    margin: 0 auto !important;
+}
+
+/* .loginPage button {
+    margin: 0 auto;
+} */
