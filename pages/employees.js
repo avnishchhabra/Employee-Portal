@@ -32,7 +32,7 @@ const columns = [
   },
 ];
 
-const employeesList = () => {
+const Employees = () => {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -61,4 +61,4 @@ const employeesList = () => {
   </>;
 };
 
-export default employeesList;
+export default Employees;

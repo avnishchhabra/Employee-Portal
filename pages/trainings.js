@@ -26,7 +26,7 @@ const columns = [
   },
 ];
 
-const trainingList = () => {
+const TrainingList = () => {
   const [trainings, setTrainings] = useState([]);
   const dataSource = trainings?.map(training => {
     const temp = {...training , status: training.status ? "true" : "false"}
@@ -49,4 +49,4 @@ const trainingList = () => {
   );
 };
 
-export default trainingList;
+export default TrainingList;

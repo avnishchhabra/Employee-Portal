@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import LS from "../utils/Ls";
 
-const newEmployee = () => {
+const NewEmployee = () => {
   const router = useRouter();
   const [departments, setDepartments] = useState([]);
   const [form] = Form.useForm();
@@ -52,4 +52,4 @@ const newEmployee = () => {
   );
 };
 
-export default newEmployee;
+export default NewEmployee;

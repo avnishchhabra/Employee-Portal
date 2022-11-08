@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import LS from "../utils/Ls";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 
-const addQuestions = () => {
+const AddQuestions = () => {
   const [trainings, setTrainings] = useState([]);
   const { form } = Form.useForm();
   useEffect(() => {
@@ -32,10 +32,10 @@ const addQuestions = () => {
         name="training"
       >
         <Select placeholder="For training">
-          {/* {trainings?.map((training) => (
-            <Select.Option value={training.id}>{training.title}</Select.Option>
-          ))} */}
-          <Select.Option value={1}>Tech</Select.Option>
+          {trainings?.map((training , i) => (
+            <Select.Option key={i} value={training.id}>{training.title}</Select.Option>
+          ))}
+          {/* <Select.Option value={1}>Tech</Select.Option> */}
         </Select>
       </Form.Item>
       <h2>Questions:</h2>
@@ -107,7 +107,7 @@ const addQuestions = () => {
                       return (
                         <>
                           {fields.map(({ key, name, ...restField }) => (
-                            <div className="flex gap-md">
+                            <div key={key} className="flex gap-md">
                               <h4>Option: </h4>
                               <Form.Item
                                 {...restField}
@@ -167,4 +167,4 @@ const addQuestions = () => {
   );
 };
 
-export default addQuestions;
+export default AddQuestions;
