@@ -13,3 +13,15 @@
 .alignCenter {
     align-items: center;
 }
+
+.flexGrow {
+    flex: 1;
+}
+
+.gap-md {
+    gap: 10px
+}
+
+.justifyEnd {
+    justify-content: flex-end;
+}

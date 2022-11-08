@@ -1,6 +1,7 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import NewEmployee from "../components/modals/NewEmployee";
 import LS from "../utils/Ls";
 
 const columns = [
@@ -33,12 +34,29 @@ const columns = [
 
 const employeesList = () => {
   const [employees, setEmployees] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
-    axios.get(`employee?token=${LS.get("token")}`).then((res) => {
-      setEmployees(res.data);
-    });
+    if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
+    else {
+      axios.get(`employee?token=${LS.get("token")}`).then((res) => {
+        setEmployees(res.data);
+      });
+    }
   }, []);
   return <>
+  {isModalOpen && (
+        <NewEmployee
+          isModalOpen={isModalOpen}
+          handleCancel={() => setIsModalOpen(false)}
+        />
+      )}
+   <div className="flex justifyBetween mb-lg">
+    <h2>Employees</h2>
+    <Button onClick={() => setIsModalOpen(true)} type="primary">
+      Add New Employee
+    </Button>
+   </div>
    <Table className="employeeTable" loading={!employees.length} dataSource={employees} columns={columns} />
   </>;
 };

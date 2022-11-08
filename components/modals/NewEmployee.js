@@ -1,11 +1,11 @@
-import { Button, Form, Input, Select } from "antd";
-import axios from "axios";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import LS from "../utils/Ls";
+import { Button, Form, Input, Modal, Select } from 'antd'
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
+import LS from '../../utils/Ls';
 
-const newEmployee = () => {
-  const router = useRouter();
+const NewEmployee = ({ isModalOpen, handleCancel }) => {
+    const router = useRouter();
   const [departments, setDepartments] = useState([]);
   const [form] = Form.useForm();
   useEffect(() => {
@@ -22,7 +22,21 @@ const newEmployee = () => {
     })
   }
   return (
-    <Form form={form} onFinish={addEmployee}>
+    <Modal
+      title="Add New Employee"
+      open={isModalOpen}
+      onOk={addEmployee}
+      onCancel={handleCancel}
+      footer={[
+        <Button key="back" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button key="add" onClick={addEmployee}>
+          Add
+        </Button>
+      ]}
+    >
+      <Form form={form} onFinish={addEmployee}>
       <Form.Item name="name">
         <Input placeholder="Enter name" />
       </Form.Item>
@@ -47,9 +61,10 @@ const newEmployee = () => {
        <Select.Option value={1}>sds</Select.Option>
        </Select>
       </Form.Item>
-      <Button htmlType="submit">Add</Button>
+      {/* <Button htmlType="submit">Add</Button> */}
     </Form>
-  );
-};
+    </Modal>
+  )
+}
 
-export default newEmployee;
+export default NewEmployee

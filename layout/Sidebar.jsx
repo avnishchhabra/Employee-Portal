@@ -1,20 +1,14 @@
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Avatar, Layout, Menu } from "antd";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-const { Header, Sider, Content } = Layout;
-import { isMobile } from "react-device-detect";
+const { Sider } = Layout;
 import LS from "../utils/Ls";
 import SidebarItems from "../utils/SidebarItems";
 
-const Sidebar = ({ collapsed, setCollapsed }) => {
+const Sidebar = ({ setCollapsed }) => {
   const router = useRouter();
   const [employee, setEmployee] = useState();
   useEffect(() => {
@@ -60,11 +54,14 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         ))}
         {employee?.type == "admin" && (
           <Menu.SubMenu icon={<UserOutlined />} title='Admin Options' >
-            <Menu.Item onClick={() => router.push('/employeesList')} key={10} icon={<UserOutlined />}>
-              Employees List
+            <Menu.Item onClick={() => router.push('/trainings')} key={20} icon={<UserOutlined />}>
+              Trainings
             </Menu.Item>
-            <Menu.Item onClick={() => router.push('/newEmployee')} key={12} icon={<UserOutlined />}>
-              Add employee
+            <Menu.Item onClick={() => router.push('/addQuestions')} key={25} icon={<UserOutlined />}>
+              Add questions
+            </Menu.Item>
+            <Menu.Item onClick={() => router.push('/employees')} key={10} icon={<UserOutlined />}>
+              Employees
             </Menu.Item>
           </Menu.SubMenu>
         )}
