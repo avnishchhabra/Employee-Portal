@@ -1,4 +1,4 @@
-import { Button, Form, Input, Radio, Select } from "antd";
+import { Button, Form, Input, notification, Radio, Select } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import LS from "../utils/Ls";
@@ -6,7 +6,7 @@ import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 
 const AddQuestions = () => {
   const [trainings, setTrainings] = useState([]);
-  const { form } = Form.useForm();
+  const [form] = Form.useForm();
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
     else {
@@ -16,10 +16,14 @@ const AddQuestions = () => {
     }
   }, []);
   const addQuestions = (data) => {
-    console.log("data", data);
-    // axios.post(`questions` , data)
+    console.log("data", form);
+    axios.post(`questions/?token=${LS.get("token")}`, data).then(res => {
+      notification.success({
+        message: "Employee created successfully"
+      })
+      form.resetFields()
+    })
   };
-  console.log("form", form);
   return (
     <Form form={form} onFinish={addQuestions}>
       <Form.Item
@@ -29,11 +33,13 @@ const AddQuestions = () => {
             message: "Please select training",
           },
         ]}
-        name="training"
+        name="training_id"
       >
         <Select placeholder="For training">
-          {trainings?.map((training , i) => (
-            <Select.Option key={i} value={training.id}>{training.title}</Select.Option>
+          {trainings?.map((training, i) => (
+            <Select.Option key={i} value={training.id}>
+              {training.title}
+            </Select.Option>
           ))}
           {/* <Select.Option value={1}>Tech</Select.Option> */}
         </Select>
@@ -64,9 +70,7 @@ const AddQuestions = () => {
                 }}
                 className="flex justifyCenter alignCenter"
                 icon={<PlusOutlined />}
-              >
-                {/* + */}
-              </Button>
+              />
               <Form.ErrorList errors={errors} />
             </Form.Item>
             {fields.map(({ key, name, ...restField }) => (
@@ -85,6 +89,21 @@ const AddQuestions = () => {
                     ]}
                   >
                     <Input placeholder="Enter question" />
+                  </Form.Item>
+                </div>
+                <div className="ml-xl flex gap-md">
+                  <h3>Score:</h3>
+                  <Form.Item {...restField} name={[name, "score"]}>
+                    <Input placeholder="Score" />
+                  </Form.Item>
+                </div>
+                <div className="ml-xl flex gap-md">
+                  <h3>Status:</h3>
+                  <Form.Item {...restField} name={[name, "status"]}>
+                    <Radio.Group>
+                      <Radio value={true}>True</Radio>
+                      <Radio value={false}>False</Radio>
+                    </Radio.Group>
                   </Form.Item>
                 </div>
                 <div className="ml-xl">

@@ -9,7 +9,7 @@ import {
 export default [
   {
     key: 1,
-    label: "Training",
+    label: "Trainings",
     icon: <UserOutlined />,
     path: '/'
   },

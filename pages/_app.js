@@ -8,7 +8,7 @@ import '../styles/pages/employeeList.css';
 import withAuth from '../hoc/withAuth';
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://34.125.23.192/v1/"
+axios.defaults.baseURL = "http://34.125.220.253/v1/"
 
 function MyApp({ Component, pageProps }) {
 
