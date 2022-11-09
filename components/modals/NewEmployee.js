@@ -66,7 +66,7 @@ const NewEmployee = ({ isModalOpen, handleCancel , getEmployees }) => {
         <Form.Item name="department_id">
           <Select placeholder="Department">
             {departments?.map((dep) => (
-              <Select.Option value={dep.id}>{dep.name}</Select.Option>
+              <Select.Option key={dep.id} value={dep.id}>{dep.name}</Select.Option>
             ))}
           </Select>
         </Form.Item>
