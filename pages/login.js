@@ -13,6 +13,7 @@ const Login = () => {
   const login = (data) => {
     dispatch(UiActions.actions.setLoading(true));
     axios.post("login", data).then((res) => {
+      console.log('res lo',res)
       dispatch(UiActions.actions.setLoading(false));
       dispatch(AppActions.actions.setToken(res.data.message.jwt));
       LS.set("token", res.data.message.jwt);
@@ -22,8 +23,11 @@ const Login = () => {
     });
   };
   return (
-    <Card className="loginPageContainer">
+    <div className="loginPageContainer">
+      <div className="formContainer">
+      <Card>
       <Form className="loginPage" onFinish={login}>
+        <h1 className="center">Please Login</h1>
         <Form.Item
           rules={[
             {
@@ -41,11 +45,13 @@ const Login = () => {
               message: "Please input your password!",
             },
           ]} name="password">
-          <Input type="text" placeholder="Enter password"></Input>
+          <Input type="password" placeholder="Enter password"></Input>
         </Form.Item>
         <Button htmlType="submit">{loading ? <Spin /> : "Login"}</Button>
       </Form>
     </Card>
+      </div>
+    </div>
   );
 };
 

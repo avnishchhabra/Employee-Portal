@@ -20,6 +20,14 @@ a {
   /* left: 5px; */
 }
 
+.link {
+  color: blue;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

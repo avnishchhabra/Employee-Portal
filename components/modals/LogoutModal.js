@@ -4,11 +4,11 @@ import React from "react";
 import LS from "../../utils/Ls";
 
 const LogoutModal = ({ isModalOpen, handleCancel }) => {
-    const router = useRouter()
+  const router = useRouter();
   const handleOk = () => {
     LS.delete("token");
     LS.delete("user");
-    router.push('/')
+    router.push("/");
     location.reload();
   };
   return (
