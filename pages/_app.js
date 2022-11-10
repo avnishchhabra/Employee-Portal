@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import '../styles/flex.css';
 import '../styles/spacing.css';
+import '../styles/sizes.css';
 import '../styles/pages/login.css';
 import 'antd/dist/antd.css';
 import '../styles/pages/addQuestions.css';

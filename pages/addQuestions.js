@@ -25,6 +25,8 @@ const AddQuestions = () => {
     })
   };
   return (
+    <>
+      <h1 className="lg">Add Questions</h1>
     <Form form={form} onFinish={addQuestions}>
       <Form.Item
         rules={[
@@ -183,6 +185,7 @@ const AddQuestions = () => {
         </Button>
       </div>
     </Form>
+    </>
   );
 };
 

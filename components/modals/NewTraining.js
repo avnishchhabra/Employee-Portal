@@ -34,19 +34,19 @@ const NewTraining = ({isModalOpen , handleCancel , getTrainings}) => {
       ]}
     >
       <Form form={form} onFinish={addTraining}>
-        <Form.Item name="title">
+        <Form.Item label='Title' name="title">
           <Input placeholder="Enter title" />
         </Form.Item>
-        <Form.Item name="description">
+        <Form.Item label='Description' name="description">
           <Input placeholder="Enter description" />
         </Form.Item>
-        <Form.Item name="min_pass_marks">
+        <Form.Item label='Min pass marks' name="min_pass_marks">
           <Input placeholder="Enter minimum marks to pass" />
         </Form.Item>
-        <Form.Item name="status">
-          <Select placeholder="Status">
-            <Select.Option value="true">Active</Select.Option>
-            <Select.Option value="false">Inactive</Select.Option>
+        <Form.Item label='Status' name="status">
+          <Select placeholder="Select">
+            <Select.Option value={true}>Active</Select.Option>
+            <Select.Option value={false}>Inactive</Select.Option>
           </Select>
         </Form.Item>
       </Form>

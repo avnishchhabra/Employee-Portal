@@ -37,25 +37,25 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
       ]}
     >
       <Form initialValues={employeeToEdit} form={form} onFinish={editEmployee}>
-        <Form.Item name="name">
+        <Form.Item label='Name' name="name">
           <Input placeholder="Enter name" />
         </Form.Item>
-        <Form.Item name="mobile">
+        <Form.Item label='Mobile' name="mobile">
           <Input placeholder="Enter mobile" />
         </Form.Item>
-        <Form.Item name="email">
+        <Form.Item label='Email' name="email">
           <Input placeholder="Enter email" />
         </Form.Item>
         {/* <Form.Item name="password">
         <Input placeholder="Enter password" />
       </Form.Item> */}
-        <Form.Item name="type">
+        <Form.Item label='Employee Type' name="type">
           <Select placeholder="Type">
             <Select.Option value="employee">Employee</Select.Option>
             <Select.Option value="admin">Admin</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item name="department_id">
+        <Form.Item label='Department ID' name="department_id">
           <Select placeholder="Department">
             {departments?.map((dep) => (
               <Select.Option key={dep.id} value={dep.id}>
@@ -64,10 +64,10 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="is_hod">
+        <Form.Item label='Is HOD?' name="is_hod">
           <Select placeholder="is HOD ?">
-            <Select.Option value="true">Yes</Select.Option>
-            <Select.Option value="false">No</Select.Option>
+            <Select.Option value={true}>Yes</Select.Option>
+            <Select.Option value={false}>No</Select.Option>
           </Select>
         </Form.Item>
       </Form>
