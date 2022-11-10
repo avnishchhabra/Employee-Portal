@@ -29,6 +29,7 @@ const Login = () => {
       <Form className="loginPage" onFinish={login}>
         <h1 className="center">Please Login</h1>
         <Form.Item
+         label='Email'
           rules={[
             {
               required: true,
@@ -39,7 +40,7 @@ const Login = () => {
         >
           <Input type="text" placeholder="Enter email"></Input>
         </Form.Item>
-        <Form.Item rules={[
+        <Form.Item label='Password' rules={[
             {
               required: true,
               message: "Please input your password!",
