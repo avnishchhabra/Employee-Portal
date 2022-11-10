@@ -22,6 +22,10 @@
     gap: 10px
 }
 
+.gap-lg {
+    gap: 20px;
+}
+
 .justifyEnd {
     justify-content: flex-end;
 }
