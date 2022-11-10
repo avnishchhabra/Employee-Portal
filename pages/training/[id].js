@@ -47,7 +47,7 @@ const TrainingQuiz = () => {
           <h2>{training.questions.filter(ques => ques.id == training.questions[current].id)[0].question}</h2>
             <div className="flex">
             {
-          training.questions.filter(ques => ques.id == training.questions[current].id)[0].options.map(opt => <Form.Item name='options'>
+          training.questions.filter(ques => ques.id == training.questions[current].id)[0].options.map(opt => <Form.Item key={opt.id} name='options'>
                 <Radio.Group>
                   <Radio>{opt.option}</Radio>
                 </Radio.Group>
