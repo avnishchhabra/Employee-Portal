@@ -10,7 +10,7 @@ import '../styles/pages/employeeList.css';
 import withAuth from '../hoc/withAuth';
 import axios from 'axios';
 
-axios.defaults.baseURL = "https://34.125.220.253/v1/"
+axios.defaults.baseURL = "https://pythondemo123.herokuapp.com/v1/"
 
 function MyApp({ Component, pageProps }) {
 
