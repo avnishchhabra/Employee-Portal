@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Select, Spin } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Select, Spin } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -6,10 +6,8 @@ const EditTraining = ({ isEditing, editing, handleCancel , setEditing }) => {
   const [form] = Form.useForm();
   const loading = useSelector((state) => state.ui.loading);
   const editThisTraining = (data) => {
-    console.log("data", data);
     setEditing(null)
   };
-console.log('editing',editing)
   return (
     <Modal
       title="Edit Training"
@@ -37,6 +35,15 @@ console.log('editing',editing)
         </Form.Item>
         <Form.Item label='Min pass marks' name="min_pass_marks">
           <Input placeholder="Enter minimum marks to pass" />
+        </Form.Item>
+        <Form.Item name='start_date' label="Start date">
+          <DatePicker />
+        </Form.Item>
+        <Form.Item name='end_date' label="End date">
+          <DatePicker />
+        </Form.Item>
+        <Form.Item name='duration_window' label="Duration window">
+        <Input placeholder="Enter duration in minutes" />
         </Form.Item>
         <Form.Item label='Status' name="status">
           <Select placeholder="Select">

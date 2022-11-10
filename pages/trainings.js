@@ -56,6 +56,11 @@ const TrainingList = () => {
       key: "description",
     },
     {
+      title: "Duration",
+      dataIndex: "duration_window",
+      key: "duration_window",
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",

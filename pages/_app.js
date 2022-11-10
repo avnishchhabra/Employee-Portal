@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import '../styles/flex.css';
 import '../styles/spacing.css';
 import '../styles/sizes.css';
+import '../styles/colors.css';
 import '../styles/pages/login.css';
 import 'antd/dist/antd.css';
 import '../styles/pages/addQuestions.css';
@@ -9,7 +10,7 @@ import '../styles/pages/employeeList.css';
 import withAuth from '../hoc/withAuth';
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://34.125.220.253/v1/"
+axios.defaults.baseURL = "https://34.125.220.253/v1/"
 
 function MyApp({ Component, pageProps }) {
 
