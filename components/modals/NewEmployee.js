@@ -20,9 +20,12 @@ const NewEmployee = ({ isModalOpen, handleCancel , getEmployees }) => {
     }
   }, []);
   const addEmployee = (data) => {
+    console.log('hii')
     dispatch(UiActions.actions.setLoading(true));
-    const formData = { ...form.getFieldsValue(), employee_code: "123" };
-    axios.post(`/employee/?token=${LS.get("token")}`, data).then(() => {
+    console.log('data',data)
+    console.log('LS.get("token")',LS.get("token"))
+    const formData = { ...form.getFieldsValue()};
+    axios.post(`/employee/?token=${LS.get("token")}`, formData).then(() => {
       form.resetFields();
       dispatch(UiActions.actions.setLoading(false));
       getEmployees();
