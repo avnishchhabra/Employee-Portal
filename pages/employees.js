@@ -1,6 +1,7 @@
 import { Button, Space, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import AssignTrainings from "../components/forms/AssignTrainings";
 import EditEmployee from "../components/forms/EditEmployee";
 import NewEmployee from "../components/forms/NewEmployee";
 import LS from "../utils/Ls";
@@ -10,6 +11,7 @@ const Employees = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing , setIsEditing] = useState(false)
   const [employeeToEdit , setEmployeeToEdit] = useState(null)
+  const [trainee , setTrainee] = useState(false)
 
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
@@ -25,7 +27,6 @@ const Employees = () => {
   }
 
   const deleteEmployee = (employee) => {
-    console.log('deleting',employee)
     axios.delete(`employee/${employee.id}/?token=${LS.get("token")}`).then(() => {
       setEmployees([])
       getEmployees()
@@ -60,19 +61,23 @@ const Employees = () => {
     {
       title: 'Action',
       key: 'action',
-      render: (_,record) => (
+      render: (_,employee) => (
         <Space size="middle">
           <p onClick={() => {
             setIsEditing(true)
-            setEmployeeToEdit(record)
+            setEmployeeToEdit(employee)
           }} className="link pointer">Edit</p>
-          <p onClick={() => deleteEmployee(record)} className="link pointer">Delete</p>
+          <p onClick={() => deleteEmployee(employee)} className="link pointer">Delete</p>
+          <p onClick={() => {
+            setTrainee(employee)
+          }} className="link pointer">Assign Trainings</p>
         </Space>
       ),
     },
   ];
   return (
     <>
+     {trainee && <AssignTrainings setTrainee={setTrainee} trainee={trainee} />}
       {isModalOpen && (
         <NewEmployee
           isModalOpen={isModalOpen}
