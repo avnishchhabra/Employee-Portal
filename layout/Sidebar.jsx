@@ -1,5 +1,4 @@
 import {
-  UserOutlined,
   SettingOutlined,
   PlusCircleOutlined,
   UsergroupAddOutlined,
@@ -22,9 +21,12 @@ const Sidebar = ({ setCollapsed }) => {
   return (
     <Sider
       style={{
-        height: "100vh",
         float: "right",
         paddingTop: "2vh",
+          height: '100vh',
+          position: 'sticky',
+          top: 0,
+          left: 0,
       }}
       breakpoint="sm"
       collapsedWidth="0"
@@ -37,8 +39,12 @@ const Sidebar = ({ setCollapsed }) => {
       }}
       // reverseArrow={true}
     >
-      <div className="flex justifyCenter">
+      <div className="flex justifyCenter mt-md">
         <Avatar src="https://joeschmoe.io/api/v1/random" />
+      </div>
+      <div className="center mt-lg">
+      <h2 className="md white">Hi, Mr.</h2>
+      <h2 className="md white">{JSON.parse(LS.get('user')).name}</h2>
       </div>
       <Menu
         theme="dark"

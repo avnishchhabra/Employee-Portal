@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import { Button, Layout, Menu, Space } from "antd";
+import { Affix, Button, Layout, Menu, Space } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -33,16 +33,18 @@ const Index = ({ children }) => {
       </div>
       <Layout className="site-layout">
         {
-          <Header
+          <Affix offsetTop={0}>
+            <Header
             className="site-layout-background"
             style={{
               background: "#fff",
               padding: "0 20px",
               display: "flex",
               alignItems: "center",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
             }}
           >
+            <h1 className="md pZero mZero">NENPL KIOSK</h1>
             <Space>
               <Button
                 shape="circle"
@@ -54,6 +56,7 @@ const Index = ({ children }) => {
               />
             </Space>
           </Header>
+          </Affix>
         }
         <Content
           className="site-layout-background"

@@ -1,3 +1,11 @@
+.pZero {
+    padding: 0;
+}
+
+.mZero {
+    margin: 0;
+}
+
 .mt-sm {
     margin-top: 5px;
 }

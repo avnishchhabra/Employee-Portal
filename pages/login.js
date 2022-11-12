@@ -1,4 +1,4 @@
-import { Button, Card, Form, Input, Spin } from "antd";
+import { Button, Card, Form, Input, notification, Spin } from "antd";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import LS from "../utils/Ls";
@@ -13,21 +13,28 @@ const Login = () => {
   const login = (data) => {
     dispatch(UiActions.actions.setLoading(true));
     axios.post("login", data).then((res) => {
-      console.log('res lo',res)
+      if(res.data.status === 200) {
       dispatch(UiActions.actions.setLoading(false));
       dispatch(AppActions.actions.setToken(res.data.message.jwt));
       LS.set("token", res.data.message.jwt);
       LS.set("user", JSON.stringify(res.data.message));
-      router.push('/')
       location.reload();
+      router.push('/')
+      } else {
+        dispatch(UiActions.actions.setLoading(false));
+        notification.error({
+          message: "Invalid Crediantials",
+          description: "Please enter correct details!"
+        })
+      }
     });
   };
   return (
     <div className="loginPageContainer">
       <div className="formContainer">
       <Card>
-      <Form className="loginPage" onFinish={login}>
-        <h1 className="center">Please Login</h1>
+      <Form layout="vertical" className="loginPage" onFinish={login}>
+        <h1 className="center">NENPL KIOSK</h1>
         <Form.Item
          label='Email'
           rules={[
@@ -48,7 +55,7 @@ const Login = () => {
           ]} name="password">
           <Input type="password" placeholder="Enter password"></Input>
         </Form.Item>
-        <Button htmlType="submit">{loading ? <Spin /> : "Login"}</Button>
+        <Button className="mt-md" type="primary" htmlType="submit">{loading ? <Spin /> : "Login"}</Button>
       </Form>
     </Card>
       </div>
