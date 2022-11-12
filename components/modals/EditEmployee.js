@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LS from "../../utils/Ls";
+import CustomDrawer from "../CustomDrawer";
 
 const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
   const [form] = Form.useForm();
@@ -23,7 +24,7 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
     }
   }, []);
   return (
-    <Drawer
+    <CustomDrawer
       title="Edit Employee"
       open={isEditing}
       onClose={handleCancel}
@@ -106,7 +107,7 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
         </Button>
         </div>
       </Form>
-    </Drawer>
+    </CustomDrawer>
   );
 };
 

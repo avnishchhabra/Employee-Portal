@@ -1,6 +1,7 @@
 import { Button, DatePicker, Drawer, Form, Input, Select, Spin } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
+import CustomDrawer from "../CustomDrawer";
 
 const EditTraining = ({ isEditing, editing, handleCancel, setEditing }) => {
   const [form] = Form.useForm();
@@ -9,7 +10,7 @@ const EditTraining = ({ isEditing, editing, handleCancel, setEditing }) => {
     setEditing(null);
   };
   return (
-    <Drawer
+    <CustomDrawer
       title="Edit Training"
       open={isEditing}
       onClose={handleCancel}
@@ -102,7 +103,7 @@ const EditTraining = ({ isEditing, editing, handleCancel, setEditing }) => {
         </Button>
         </div>
       </Form>
-    </Drawer>
+    </CustomDrawer>
   );
 };
 

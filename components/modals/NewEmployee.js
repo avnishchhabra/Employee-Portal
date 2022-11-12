@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LS from "../../utils/Ls";
 import UiActions from "../../redux/slices/UiSlice";
+import CustomDrawer from "../CustomDrawer";
 
 const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
   };
   const loading = useSelector((state) => state.ui.loading);
   return (
-    <Drawer title="Add New Employee" open={isModalOpen} onClose={handleCancel}>
+    <CustomDrawer title="Add New Employee" open={isModalOpen} onClose={handleCancel}>
       <Form layout="vertical" form={form} onFinish={addEmployee}>
         <Form.Item
           rules={[
@@ -138,7 +139,7 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
           </Button>
         </div>
       </Form>
-    </Drawer>
+    </CustomDrawer>
   );
 };
 

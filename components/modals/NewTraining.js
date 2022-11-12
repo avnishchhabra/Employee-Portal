@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LS from "../../utils/Ls";
 import UiActions from "../../redux/slices/UiSlice";
 import moment from "moment";
+import CustomDrawer from "../CustomDrawer";
 
 const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
   const [form] = Form.useForm();
@@ -33,7 +34,7 @@ const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
     });
   };
   return (
-    <Drawer
+    <CustomDrawer
       title="Add New Training"
       placement="right"
       open={isModalOpen}
@@ -140,7 +141,7 @@ const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
           </Button>
         </div>
       </Form>
-    </Drawer>
+    </CustomDrawer>
   );
 };
 
