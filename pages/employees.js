@@ -1,8 +1,8 @@
 import { Button, Space, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import EditEmployee from "../components/modals/EditEmployee";
-import NewEmployee from "../components/modals/NewEmployee";
+import EditEmployee from "../components/forms/EditEmployee";
+import NewEmployee from "../components/forms/NewEmployee";
 import LS from "../utils/Ls";
 
 const Employees = () => {

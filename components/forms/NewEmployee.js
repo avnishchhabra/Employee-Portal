@@ -1,4 +1,13 @@
-import { Button, Drawer, Form, Input, Modal, Select, Spin } from "antd";
+import {
+  Button,
+  Checkbox,
+  Drawer,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Spin,
+} from "antd";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -11,6 +20,7 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
   const router = useRouter();
   const [departments, setDepartments] = useState([]);
   const [form] = Form.useForm();
+  const [automaticCode, setAutomaticCode] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
@@ -32,7 +42,11 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
   };
   const loading = useSelector((state) => state.ui.loading);
   return (
-    <CustomDrawer title="Add New Employee" open={isModalOpen} onClose={handleCancel}>
+    <CustomDrawer
+      title="Add New Employee"
+      open={isModalOpen}
+      onClose={handleCancel}
+    >
       <Form layout="vertical" form={form} onFinish={addEmployee}>
         <Form.Item
           rules={[
@@ -100,12 +114,32 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
         <Form.Item
           rules={[
             {
+              required: !automaticCode,
+              message: "Please enter employee code",
+            },
+          ]}
+          name="employee_code"
+          label="Employee Code"
+        >
+          <Input disabled={automaticCode} placeholder="Enter employee code" />
+        </Form.Item>
+        <div className="flex alignCenter gap-md" style={{ marginTop: "-15px" }}>
+          <p className=" mZero">Automatic Employee Code</p>
+          <Checkbox
+            checked={automaticCode}
+            onChange={(e) => setAutomaticCode(e.target.checked)}
+          />
+        </div>
+        <Form.Item
+          rules={[
+            {
               required: true,
               message: "Please enter department",
             },
           ]}
           label="Department ID"
           name="department_id"
+          className="mt-lg"
         >
           <Select placeholder="Department">
             {departments?.map((dep) => (

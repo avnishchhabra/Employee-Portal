@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { isMobile } from "react-device-detect";
 import LS from "../utils/Ls";
-import LogoutModal from "../components/modals/LogoutModal";
+import LogoutModal from "../components/forms/LogoutModal";
 import { useEffect } from "react";
 const { Header, Sider, Content } = Layout;
 

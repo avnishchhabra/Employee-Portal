@@ -1,9 +1,10 @@
 import { Button, Space, Table } from "antd";
 import axios from "axios";
+import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import EditTraining from "../components/modals/EditTraining";
-import NewTraining from "../components/modals/NewTraining";
+import EditTraining from "../components/forms/EditTraining";
+import NewTraining from "../components/forms/NewTraining";
 import LS from "../utils/Ls";
 
 const TrainingList = () => {
@@ -62,8 +63,15 @@ const TrainingList = () => {
     },
     {
       title: "Status",
-      dataIndex: "status",
-      key: "status",
+      // dataIndex: "status",
+      // key: "status",
+      render: (_, training) => {
+        return moment().isAfter(training.start_date) ? (
+           <p className="green">Active</p>
+         ) : (
+           <p className="red">Inactive</p>
+         );
+       },
     },
     {
       title: "Action",
