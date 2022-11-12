@@ -1,5 +1,10 @@
 import {
   UserOutlined,
+  SettingOutlined,
+  PlusCircleOutlined,
+  UsergroupAddOutlined,
+  MessageOutlined
+  
 } from "@ant-design/icons";
 import { Avatar, Layout, Menu } from "antd";
 import { useRouter } from "next/router";
@@ -53,14 +58,14 @@ const Sidebar = ({ setCollapsed }) => {
           </Menu.Item>
         ))}
         {employee?.type == "admin" && (
-          <Menu.SubMenu icon={<UserOutlined />} title='Admin Options' >
-            <Menu.Item onClick={() => router.push('/trainings')} key={20} icon={<UserOutlined />}>
+          <Menu.SubMenu icon={<SettingOutlined />} title='Admin Options' >
+            <Menu.Item onClick={() => router.push('/trainings')} key={20} icon={<MessageOutlined />}>
               Trainings
             </Menu.Item>
-            <Menu.Item onClick={() => router.push('/addQuestions')} key={25} icon={<UserOutlined />}>
+            <Menu.Item onClick={() => router.push('/addQuestions')} key={25} icon={<PlusCircleOutlined />}>
               Add questions
             </Menu.Item>
-            <Menu.Item onClick={() => router.push('/employees')} key={10} icon={<UserOutlined />}>
+            <Menu.Item onClick={() => router.push('/employees')} key={10} icon={<UsergroupAddOutlined />}>
               Employees
             </Menu.Item>
           </Menu.SubMenu>

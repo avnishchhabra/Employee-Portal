@@ -86,7 +86,7 @@ const Home = () => {
         <Button
           onClick={() => router.push(`/training/${training.id}`)}
           type="primary"
-          // disabled={!moment().isAfter(training.start_date)}
+          disabled={!moment().isAfter(training.start_date)}
         >
           Start
         </Button>

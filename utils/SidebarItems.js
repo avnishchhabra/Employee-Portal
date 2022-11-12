@@ -1,9 +1,8 @@
 import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
   UserOutlined,
+  WarningOutlined,
+  InfoCircleOutlined,
+  StockOutlined,
 } from "@ant-design/icons";
 
 export default [
@@ -16,22 +15,19 @@ export default [
   {
     key: 2,
     label: "Performance Score",
-    icon: <UserOutlined />,
-    // children: [],
+    icon: <StockOutlined />,
     path: '/performance'
   },
   {
     key: 3,
     label: "Hazard",
-    icon: <UserOutlined />,
-    // children: [],
+    icon: <WarningOutlined />,
     path: '/hazard'
   },
   {
     key: 4,
     label: "Grievance",
-    icon: <UserOutlined />,
-    // children: [],
+    icon: <InfoCircleOutlined />,
     path: '/grievance'
   },
 ];
