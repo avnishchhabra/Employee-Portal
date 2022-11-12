@@ -1,8 +1,8 @@
 import { Button, Card, Form, Input, notification, Radio, Select } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import LS from "../utils/Ls";
-import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
+import LS from "../../utils/Ls";
+import { PlusOutlined } from "@ant-design/icons";
 
 const AddQuestions = () => {
   const [trainings, setTrainings] = useState([]);

@@ -1,10 +1,10 @@
 import { Button, Space, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import AssignTrainings from "../components/forms/AssignTrainings";
-import EditEmployee from "../components/forms/EditEmployee";
-import NewEmployee from "../components/forms/NewEmployee";
-import LS from "../utils/Ls";
+import AssignTrainings from "../../components/forms/AssignTrainings";
+import EditEmployee from "../../components/forms/EditEmployee";
+import NewEmployee from "../../components/forms/NewEmployee";
+import LS from "../../utils/Ls";
 
 const Employees = () => {
   const [employees, setEmployees] = useState([]);

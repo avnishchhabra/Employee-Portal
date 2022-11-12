@@ -3,9 +3,9 @@ import axios from "axios";
 import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import EditTraining from "../components/forms/EditTraining";
-import NewTraining from "../components/forms/NewTraining";
-import LS from "../utils/Ls";
+import EditTraining from "../../components/forms/EditTraining";
+import NewTraining from "../../components/forms/NewTraining";
+import LS from "../../utils/Ls";
 
 const TrainingList = () => {
   const [trainings, setTrainings] = useState([]);

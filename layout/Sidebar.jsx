@@ -66,21 +66,21 @@ const Sidebar = ({ setCollapsed }) => {
         {employee?.type == "admin" && (
           <Menu.SubMenu icon={<SettingOutlined />} title="Admin Options">
             <Menu.Item
-              onClick={() => router.push("/trainings")}
+              onClick={() => router.push("/admin/trainings")}
               key={20}
               icon={<MessageOutlined />}
             >
               Trainings
             </Menu.Item>
             <Menu.Item
-              onClick={() => router.push("/addQuestions")}
+              onClick={() => router.push("/admin/addQuestions")}
               key={25}
               icon={<PlusCircleOutlined />}
             >
               Add questions
             </Menu.Item>
             <Menu.Item
-              onClick={() => router.push("/employees")}
+              onClick={() => router.push("/admin/employees")}
               key={10}
               icon={<UsergroupAddOutlined />}
             >
