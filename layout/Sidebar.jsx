@@ -2,8 +2,9 @@ import {
   SettingOutlined,
   PlusCircleOutlined,
   UsergroupAddOutlined,
-  MessageOutlined
-  
+  MessageOutlined,
+  WarningOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import { Avatar, Layout, Menu } from "antd";
 import { useRouter } from "next/router";
@@ -23,10 +24,10 @@ const Sidebar = ({ setCollapsed }) => {
       style={{
         float: "right",
         paddingTop: "2vh",
-          height: '100vh',
-          position: 'sticky',
-          top: 0,
-          left: 0,
+        height: "100vh",
+        position: "sticky",
+        top: 0,
+        left: 0,
       }}
       breakpoint="sm"
       collapsedWidth="0"
@@ -34,7 +35,6 @@ const Sidebar = ({ setCollapsed }) => {
         console.log(broken);
       }}
       onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
         setCollapsed(collapsed);
       }}
       // reverseArrow={true}
@@ -43,8 +43,8 @@ const Sidebar = ({ setCollapsed }) => {
         <Avatar src="https://joeschmoe.io/api/v1/random" />
       </div>
       <div className="center mt-lg">
-      <h2 className="md white">Hi, Mr.</h2>
-      <h2 className="md white">{JSON.parse(LS.get('user')).name}</h2>
+        <h2 className="md white">Hi, Mr./Mrs.</h2>
+        <h2 className="md white">{JSON.parse(LS.get("user")).name}</h2>
       </div>
       <Menu
         theme="dark"
@@ -64,15 +64,41 @@ const Sidebar = ({ setCollapsed }) => {
           </Menu.Item>
         ))}
         {employee?.type == "admin" && (
-          <Menu.SubMenu icon={<SettingOutlined />} title='Admin Options' >
-            <Menu.Item onClick={() => router.push('/trainings')} key={20} icon={<MessageOutlined />}>
+          <Menu.SubMenu icon={<SettingOutlined />} title="Admin Options">
+            <Menu.Item
+              onClick={() => router.push("/trainings")}
+              key={20}
+              icon={<MessageOutlined />}
+            >
               Trainings
             </Menu.Item>
-            <Menu.Item onClick={() => router.push('/addQuestions')} key={25} icon={<PlusCircleOutlined />}>
+            <Menu.Item
+              onClick={() => router.push("/addQuestions")}
+              key={25}
+              icon={<PlusCircleOutlined />}
+            >
               Add questions
             </Menu.Item>
-            <Menu.Item onClick={() => router.push('/employees')} key={10} icon={<UsergroupAddOutlined />}>
+            <Menu.Item
+              onClick={() => router.push("/employees")}
+              key={10}
+              icon={<UsergroupAddOutlined />}
+            >
               Employees
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => router.push("/admin/hazards")}
+              key={30}
+              icon={<WarningOutlined />}
+            >
+              Hazards
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => router.push("/admin/grievances")}
+              key={35}
+              icon={<InfoCircleOutlined />}
+            >
+              Grievances
             </Menu.Item>
           </Menu.SubMenu>
         )}
