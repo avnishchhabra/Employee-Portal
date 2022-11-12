@@ -25,39 +25,46 @@ const Home = () => {
       title: "Name",
       dataIndex: "title",
       key: "title",
+      
     },
     {
       title: "Total marks",
       dataIndex: "total_marks",
       key: "total_marks",
+      
     },
     {
       title: "Min pass marks",
       dataIndex: "min_pass_marks",
       key: "min_pass_marks",
+      
     },
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      
     },
     {
       title: "Start date",
       dataIndex: "start_date",
       key: "start_date",
-      render: (_, training) => moment(training.start_date).format('DD-MM-YY')
+      render: (_, training) => moment(training.start_date).format('DD-MM-YY'),
+      
     },
     {
       title: "End date",
       dataIndex: "end_date",
       key: "end_date",
-      render: (_, training) => moment(training.end_date).format('DD-MM-YY')
+      render: (_, training) => moment(training.end_date).format('DD-MM-YY'),
+      
     },
     {
       title: "Duration",
       dataIndex: "duration_window",
       key: "duration_window",
-      render: (_, training) => <p>{`${training.duration_window} mins`}</p>
+      render: (_, training) => <p>{`${training.duration_window} mins`}</p>,
+      
     },
     {
       title: "Status",

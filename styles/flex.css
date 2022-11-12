@@ -2,6 +2,10 @@
     display: flex;
 }
 
+.fColumn {
+    flex-direction: column;
+}
+
 .justifyBetween {
     justify-content: space-between;
 }

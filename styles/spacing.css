@@ -10,17 +10,23 @@
     margin-top: 20px;
 }
 
+.mt-xl {
+    margin-top: 80px;
+}
+
 .mb-lg {
     margin-bottom: 20px;
 }
 
-.mt-xl {
-    margin-top: 80px;
-}
+
 .ml-md {
     margin-left: 10px;
 }
 
 .ml-xl {
     margin-left: 80px;
+}
+
+.p-lg {
+    padding: 20px;
 }

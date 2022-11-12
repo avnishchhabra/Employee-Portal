@@ -28,7 +28,9 @@ const Index = ({ children }) => {
           handleCancel={() => setIsModalOpen(false)}
         />
       )}
+      <div>
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+      </div>
       <Layout className="site-layout">
         {
           <Header
