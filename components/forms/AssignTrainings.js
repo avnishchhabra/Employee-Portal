@@ -1,5 +1,5 @@
 import { Button, Form, notification, Select, Spin } from "antd";
-import axios from "axios";
+import axios from "../../hoc/axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LS from "../../utils/Ls";
@@ -53,7 +53,7 @@ const AssignTrainings = ({ setTrainee, trainee }) => {
             options={options}
           />
         </Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={loading}>
           {loading ? <Spin /> : "Assign"}
         </Button>
       </Form>

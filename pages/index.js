@@ -1,15 +1,16 @@
 import { Button, Table } from "antd";
-import axios from "axios";
+import axios from "../hoc/axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import LS from "../utils/Ls";
 import moment from "moment";
+import LS from "../utils/Ls";
 
 const Home = () => {
   const [trainings, setTrainings] = useState([]);
+  const user = JSON.parse(LS.get("user"))
   const router = useRouter();
   const getTrainings = () => {
-    axios.get(`trainings?token=${LS.get("token")}`).then((res) => {
+    axios.get(`trainings`).then((res) => {
       let tempData = [];
       res.data.map((data) =>
         tempData.push({ ...data, status: data.status ? "Active" : "Inactive" })
@@ -25,53 +26,41 @@ const Home = () => {
       title: "Name",
       dataIndex: "title",
       key: "title",
-      
-    },
-    {
-      title: "Total marks",
-      dataIndex: "total_marks",
-      key: "total_marks",
-      
-    },
-    {
-      title: "Min pass marks",
-      dataIndex: "min_pass_marks",
-      key: "min_pass_marks",
-      
+
     },
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      
+
     },
     {
       title: "Start date",
       dataIndex: "start_date",
       key: "start_date",
-      render: (_, training) => moment(training.start_date).format('DD-MM-YY'),
-      
+      render: (_, training) => training.start_date ? moment(training.start_date).format('DD-MM-YY') : 'N/a',
+
     },
     {
       title: "End date",
       dataIndex: "end_date",
       key: "end_date",
-      render: (_, training) => moment(training.end_date).format('DD-MM-YY'),
-      
+      render: (_, training) => training.end_date ? moment(training.end_date).format('DD-MM-YY') : 'N/a',
+
     },
     {
       title: "Duration",
       dataIndex: "duration_window",
       key: "duration_window",
-      render: (_, training) => <p>{`${training.duration_window} mins`}</p>,
-      
+      render: (_, training) => training.duration_window ? `${training.duration_window} mins` : 'N/a',
+
     },
     {
       title: "Status",
       dataIndex: "abc",
       key: "abc",
       render: (_, training) => {
-       return moment().isAfter(training.start_date) ? (
+        return moment().isAfter(training.start_date) ? (
           <p className="green">Active</p>
         ) : (
           <p className="red">Inactive</p>
@@ -88,7 +77,7 @@ const Home = () => {
           type="primary"
           disabled={!moment().isAfter(training.start_date)}
         >
-          Start
+          {user.type === "admin" ? 'View' : 'start'}
         </Button>
       ),
     },
@@ -98,6 +87,7 @@ const Home = () => {
       loading={!trainings.length}
       columns={columns}
       dataSource={trainings}
+      rowKey="id"
     />
   );
 };

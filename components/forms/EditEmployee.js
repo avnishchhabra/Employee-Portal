@@ -1,5 +1,5 @@
 import { Button, Drawer, Form, Input, Modal, Select, Spin } from "antd";
-import axios from "axios";
+import axios from "../../hoc/axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -13,7 +13,7 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
   const [departments, setDepartments] = useState([]);
   const editEmployee = (data) => {
     const formData = form.getFieldsValue()
-    axios.patch(`employee/${employeeToEdit.id}/?token=${LS.get("token")}` , formData)
+    axios.patch(`employee/${employeeToEdit.id}/?token=${LS.get("token")}`, formData)
   };
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
@@ -31,27 +31,27 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
     >
       <Form layout="vertical" initialValues={employeeToEdit} form={form} onFinish={editEmployee}>
         <Form.Item rules={[
-            {
-              required: true,
-              message: "Please enter name",
-            },
-          ]} label='Name' name="name">
+          {
+            required: true,
+            message: "Please enter name",
+          },
+        ]} label='Name' name="name">
           <Input placeholder="Enter name" />
         </Form.Item>
         <Form.Item rules={[
-            {
-              required: true,
-              message: "Please enter mobile",
-            },
-          ]} label='Mobile' name="mobile">
+          {
+            required: true,
+            message: "Please enter mobile",
+          },
+        ]} label='Mobile' name="mobile">
           <Input placeholder="Enter mobile" />
         </Form.Item>
         <Form.Item rules={[
-            {
-              required: true,
-              message: "Please enter email",
-            },
-          ]} label='Email' name="email">
+          {
+            required: true,
+            message: "Please enter email",
+          },
+        ]} label='Email' name="email">
           <Input placeholder="Enter email" />
         </Form.Item>
         {/* <Form.Item rules={[
@@ -63,22 +63,22 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
         <Input placeholder="Enter password" />
       </Form.Item> */}
         <Form.Item rules={[
-            {
-              required: true,
-              message: "Please enter employee type",
-            },
-          ]} label='Employee Type' name="type">
+          {
+            required: true,
+            message: "Please enter employee type",
+          },
+        ]} label='Employee Type' name="type">
           <Select placeholder="Type">
             <Select.Option value="employee">Employee</Select.Option>
             <Select.Option value="admin">Admin</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item rules={[
-            {
-              required: true,
-              message: "Please enter department",
-            },
-          ]} label='Department ID' name="department_id">
+          {
+            required: true,
+            message: "Please enter department",
+          },
+        ]} label='Department ID' name="department_id">
           <Select placeholder="Department">
             {departments?.map((dep) => (
               <Select.Option key={dep.id} value={dep.id}>
@@ -88,23 +88,23 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
           </Select>
         </Form.Item>
         <Form.Item rules={[
-            {
-              required: true,
-              message: "Please enter is hod?",
-            },
-          ]} label='Is HOD?' name="is_hod">
+          {
+            required: true,
+            message: "Please enter is hod?",
+          },
+        ]} label='Is HOD?' name="is_hod">
           <Select placeholder="is HOD ?">
             <Select.Option value={true}>Yes</Select.Option>
             <Select.Option value={false}>No</Select.Option>
           </Select>
         </Form.Item>
         <div className="flex gap-lg">
-        <Button key="back" onClick={handleCancel}>
-          Cancel
-        </Button>
-        <Button key="add" htmlType="submit" type="primary">
-          {loading ? <Spin /> : "Edit"}
-        </Button>
+          <Button key="back" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button key="add" htmlType="submit" type="primary">
+            {loading ? <Spin /> : "Edit"}
+          </Button>
         </div>
       </Form>
     </CustomDrawer>

@@ -37,14 +37,14 @@ const Sidebar = ({ setCollapsed }) => {
       onCollapse={(collapsed, type) => {
         setCollapsed(collapsed);
       }}
-      // reverseArrow={true}
+    // reverseArrow={true}
     >
       <div className="flex justifyCenter mt-md">
         <Avatar src="https://joeschmoe.io/api/v1/random" />
       </div>
       <div className="center mt-lg">
-        <h2 className="md white">Hi, Mr./Mrs.</h2>
-        <h2 className="md white">{JSON.parse(LS.get("user")).name}</h2>
+        <h2 className="md white">Hi {JSON.parse(LS.get("user")).name}</h2>
+
       </div>
       <Menu
         theme="dark"

@@ -1,5 +1,5 @@
 import { Button, Space, Table } from "antd";
-import axios from "axios";
+import axios from "../../hoc/axios";
 import React, { useEffect, useState } from "react";
 import AssignTrainings from "../../components/forms/AssignTrainings";
 import EditEmployee from "../../components/forms/EditEmployee";
@@ -9,9 +9,9 @@ import LS from "../../utils/Ls";
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing , setIsEditing] = useState(false)
-  const [employeeToEdit , setEmployeeToEdit] = useState(null)
-  const [trainee , setTrainee] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
+  const [employeeToEdit, setEmployeeToEdit] = useState(null)
+  const [trainee, setTrainee] = useState(false)
 
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
@@ -61,23 +61,23 @@ const Employees = () => {
     {
       title: 'Action',
       key: 'action',
-      render: (_,employee) => (
+      render: (_, employee) => (
         <Space size="middle">
-          <p onClick={() => {
+          <Button type="link" onClick={() => {
             setIsEditing(true)
             setEmployeeToEdit(employee)
-          }} className="link pointer">Edit</p>
-          <p onClick={() => deleteEmployee(employee)} className="link pointer">Delete</p>
-          <p onClick={() => {
+          }} className="link pointer">Edit</Button>
+
+          <Button type="link" disabled={employee.type === "admin" ? true : false} onClick={() => {
             setTrainee(employee)
-          }} className="link pointer">Assign Trainings</p>
+          }} className="link pointer">Assign Trainings</Button>
         </Space>
       ),
     },
   ];
   return (
     <>
-     {trainee && <AssignTrainings setTrainee={setTrainee} trainee={trainee} />}
+      {trainee && <AssignTrainings setTrainee={setTrainee} trainee={trainee} />}
       {isModalOpen && (
         <NewEmployee
           isModalOpen={isModalOpen}
@@ -88,7 +88,7 @@ const Employees = () => {
       {isEditing && <EditEmployee isEditing={isEditing} employeeToEdit={employeeToEdit} handleCancel={() => {
         setIsEditing(false)
         setEmployeeToEdit(null)
-      }}  />}
+      }} />}
       <div className="flex justifyBetween mb-lg">
         <h2>Employees</h2>
         <Button onClick={() => setIsModalOpen(true)} type="primary">
@@ -100,6 +100,7 @@ const Employees = () => {
         loading={!employees.length}
         dataSource={employees}
         columns={columns}
+        pagination={false}
       />
     </>
   );

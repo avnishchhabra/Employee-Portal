@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import CustomDrawer from "../CustomDrawer";
 import { Button, DatePicker, Drawer, Form, Input, notification, Select, Spin } from "antd";
 import LS from "../../utils/Ls";
-import axios from "axios";
+import axios from "../../hoc/axios";
 import UiActions from "../../redux/slices/UiSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const RaiseHazard = ({ title, setRaiseHazard, raiseHazard , getHazards }) => {
+const RaiseHazard = ({ title, setRaiseHazard, raiseHazard, getHazards }) => {
   const [departments, setDepartments] = useState([]);
   const dispatch = useDispatch();
   const submitHazard = (data) => {
     dispatch(UiActions.actions.setLoading(true));
-    console.log('datadata',data)
-    axios.post(`hazards/?token=${LS.get("token")}` , data).then(() => {
+    console.log('datadata', data)
+    data['status'] = 'pending'
+    axios.post(`hazards/?token=${LS.get("token")}`, data).then(() => {
       getHazards()
       notification.success({
         message: "Hazard raised successfully",
@@ -58,9 +59,9 @@ const RaiseHazard = ({ title, setRaiseHazard, raiseHazard , getHazards }) => {
           ]}
           name="description"
           label="Description"
-          
+
         >
-          <Input placeholder="Enter description" />
+          <Input.TextArea placeholder="Enter description" />
         </Form.Item>
         <Form.Item
           rules={[
@@ -92,18 +93,7 @@ const RaiseHazard = ({ title, setRaiseHazard, raiseHazard , getHazards }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-              message: "Please input type",
-            },
-          ]}
-          name="status"
-          label="Status"
-        >
-          <Input placeholder="Enter status" />
-        </Form.Item>
+
         <Form.Item
           rules={[
             {
@@ -114,7 +104,7 @@ const RaiseHazard = ({ title, setRaiseHazard, raiseHazard , getHazards }) => {
           name="remarks"
           label="Remarks"
         >
-          <Input placeholder="Enter remarks" />
+          <Input.TextArea placeholder="Enter remarks" />
         </Form.Item>
         <div className="flex gap-lg">
           <Button key="back" onClick={() => setRaiseHazard(false)}>

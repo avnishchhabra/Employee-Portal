@@ -1,5 +1,5 @@
 import { Button, Card, Form, Input, notification, Radio, Select } from "antd";
-import axios from "axios";
+import axios from "../../hoc/axios";
 import React, { useEffect, useState } from "react";
 import LS from "../../utils/Ls";
 import { PlusOutlined } from "@ant-design/icons";
@@ -19,7 +19,7 @@ const AddQuestions = () => {
     console.log("data", form);
     axios.post(`questions/?token=${LS.get("token")}`, data).then((res) => {
       notification.success({
-        message: "Employee created successfully",
+        message: "Questions  created successfully",
       });
       form.resetFields();
     });
@@ -181,7 +181,7 @@ const AddQuestions = () => {
         </Form.List>
         <div className="flex justifyCenter mt-xl">
           <Button type="primary" htmlType="submit">
-            ADD QUESTIONS
+            Submit Questions
           </Button>
         </div>
       </Form>

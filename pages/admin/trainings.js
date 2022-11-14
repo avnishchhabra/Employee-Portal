@@ -1,5 +1,5 @@
 import { Button, Space, Table } from "antd";
-import axios from "axios";
+import axios from "../../hoc/axios";
 import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -41,16 +41,7 @@ const TrainingList = () => {
       dataIndex: "title",
       key: "title",
     },
-    {
-      title: "Total marks",
-      dataIndex: "total_marks",
-      key: "total_marks",
-    },
-    {
-      title: "Min pass marks",
-      dataIndex: "min_pass_marks",
-      key: "min_pass_marks",
-    },
+
     {
       title: "Description",
       dataIndex: "description",
@@ -63,34 +54,11 @@ const TrainingList = () => {
     },
     {
       title: "Status",
-      // dataIndex: "status",
-      // key: "status",
-      render: (_, training) => {
-        return moment().isAfter(training.start_date) ? (
-           <p className="green">Active</p>
-         ) : (
-           <p className="red">Inactive</p>
-         );
-       },
+      dataIndex: "status",
+      key: "status",
+      render: (status) => status ? 'Active' : 'Inactive'
     },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          <p
-            className="link pointer"
-            onClick={() => {
-              setEditing(null);
-              editTraining(record);
-            }}
-          >
-            Edit
-          </p>
-          <p className="link pointer">Delete</p>
-        </Space>
-      ),
-    },
+
   ];
   return (
     <>
@@ -119,6 +87,7 @@ const TrainingList = () => {
         loading={!trainings.length}
         dataSource={dataSource}
         columns={columns}
+        pagination={false}
       />
     </>
   );

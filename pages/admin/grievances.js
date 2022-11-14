@@ -1,5 +1,5 @@
 import { Button, Table } from "antd";
-import axios from "axios";
+import axios from "../../hoc/axios";
 import React, { useEffect, useState } from "react";
 import RaiseGrievance from "../../components/forms/RaiseGrievance";
 import GrievanceColumns from "../../utils/columns/GrievanceColumns";

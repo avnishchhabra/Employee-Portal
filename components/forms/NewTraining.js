@@ -7,13 +7,14 @@ import {
   Select,
   Spin,
 } from "antd";
-import axios from "axios";
+import axios from "../../hoc/axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LS from "../../utils/Ls";
 import UiActions from "../../redux/slices/UiSlice";
 import moment from "moment";
 import CustomDrawer from "../CustomDrawer";
+import { successNotification } from "../notification";
 
 const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
   const [form] = Form.useForm();
@@ -24,14 +25,24 @@ const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
     const formData = { ...form.getFieldsValue() };
     const formDataAgain = {
       ...formData,
-      start_date: moment(formData.start_date).format("DD-MM-YYYY"),
-      end_date: moment(formData.end_date).format("DD-MM-YYYY"),
+      min_pass_marks: 0,
+      start_date: moment(formData.start_date).format("YYYY-MM-DD"),
+      end_date: moment(formData.end_date).format("YYYY-MM-DD"),
     };
-    formData.resetFields()
-    axios.post(`trainings?token=${LS.get("token")}`, formDataAgain).then(() => {
+    axios.post(`trainings`, formDataAgain).then((response) => {
+
+      if (response) {
+        successNotification({
+          message: 'Success!!',
+          description: 'Training added successfully',
+          placement: 'topRight',
+        });
+      }
       dispatch(UiActions.actions.setLoading(false));
       handleCancel()
-    });
+    }).catch(error => {
+      dispatch(UiActions.actions.setLoading(false));
+    })
   };
   return (
     <CustomDrawer
@@ -63,20 +74,9 @@ const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
           label="Description"
           name="description"
         >
-          <Input placeholder="Enter description" />
+          <Input.TextArea placeholder="Enter description" />
         </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-              message: "Please enter min pass marks",
-            },
-          ]}
-          label="Min pass marks"
-          name="min_pass_marks"
-        >
-          <Input placeholder="Enter minimum marks to pass" />
-        </Form.Item>
+
         <Form.Item
           rules={[
             {
@@ -87,7 +87,7 @@ const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
           name="start_date"
           label="Start date"
         >
-          <DatePicker />
+          <DatePicker style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item
           rules={[
@@ -99,7 +99,7 @@ const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
           name="end_date"
           label="End date"
         >
-          <DatePicker />
+          <DatePicker style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item
           rules={[
@@ -109,7 +109,7 @@ const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
             },
           ]}
           name="duration_window"
-          label="Duration window"
+          label="Duration window (in minutes)"
         >
           <Input type="number" placeholder="Enter duration in minutes" />
         </Form.Item>
@@ -133,6 +133,7 @@ const NewTraining = ({ isModalOpen, handleCancel, getTrainings }) => {
             Cancel
           </Button>
           <Button
+            loading={loading}
             htmlType="submit"
             type="primary"
             key="add"

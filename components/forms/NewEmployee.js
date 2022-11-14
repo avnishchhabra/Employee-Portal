@@ -1,20 +1,19 @@
 import {
   Button,
   Checkbox,
-  Drawer,
   Form,
   Input,
-  Modal,
   Select,
   Spin,
 } from "antd";
-import axios from "axios";
+import axios from "../../hoc/axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LS from "../../utils/Ls";
 import UiActions from "../../redux/slices/UiSlice";
 import CustomDrawer from "../CustomDrawer";
+import { successNotification } from "../notification";
 
 const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
   const router = useRouter();
@@ -35,6 +34,11 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
     const formData = { ...form.getFieldsValue() };
     axios.post(`/employee/?token=${LS.get("token")}`, formData).then(() => {
       form.resetFields();
+      successNotification({
+        message: 'Success!!',
+        description: 'Employee added successfully',
+        placement: 'topRight',
+      });
       dispatch(UiActions.actions.setLoading(false));
       getEmployees();
       handleCancel();
@@ -168,7 +172,7 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
           <Button key="back" onClick={handleCancel}>
             Cancel
           </Button>
-          <Button type="primary" htmlType="submit" key="add">
+          <Button type="primary" block htmlType="submit" key="add" loading={loading}>
             {loading ? <Spin /> : "Add"}
           </Button>
         </div>

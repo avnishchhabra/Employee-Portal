@@ -1,27 +1,27 @@
 import { Button, Table } from 'antd'
-import axios from 'axios'
+import axios from '../hoc/axios'
 import React, { useEffect, useState } from 'react'
 import RaiseGrievance from '../components/forms/RaiseGrievance'
 import GrievanceColumns from '../utils/columns/GrievanceColumns'
 import LS from '../utils/Ls'
 
 const Grievance = () => {
-  const [grievances , setGrievances] = useState()
-  const [raiseGrievance , setRaiseGrievance] = useState(false)
+  const [grievances, setGrievances] = useState()
+  const [raiseGrievance, setRaiseGrievance] = useState(false)
   useEffect(() => {
     getGrievances()
-  } , [])
-  const getGrievances = () => axios.get(`grievances/?token=${LS.get('token')}`).then(res => setGrievances(res.data))
+  }, [])
+  const getGrievances = () => axios.get(`grievances/`).then(res => setGrievances(res.data))
   return (
     <>
-    {raiseGrievance && <RaiseGrievance getGrievances={getGrievances} raiseGrievance={raiseGrievance} setRaiseGrievance={setRaiseGrievance} />}
-     <div className="flex justifyBetween mb-lg">
+      {raiseGrievance && <RaiseGrievance getGrievances={getGrievances} raiseGrievance={raiseGrievance} setRaiseGrievance={setRaiseGrievance} />}
+      <div className="flex justifyBetween mb-lg">
         <h2>Grievances</h2>
         <Button onClick={() => setRaiseGrievance(true)} type="primary">
           Raise a grievance
         </Button>
       </div>
-    <Table loading={!grievances} columns={GrievanceColumns} dataSource={grievances} />
+      <Table loading={!grievances} columns={GrievanceColumns} dataSource={grievances} />
     </>)
 }
 

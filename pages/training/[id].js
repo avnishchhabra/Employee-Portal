@@ -1,5 +1,5 @@
-import { Button, Form, notification, Radio, Spin, Steps } from "antd";
-import axios from "axios";
+import { Alert, Button, Card, Descriptions, Form, notification, Radio, Spin, Steps } from "antd";
+import axios from "../../hoc/axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,8 @@ import UiActions from "../../redux/slices/UiSlice";
 
 const TrainingQuiz = () => {
   const [training, setTraining] = useState();
+  const user = JSON.parse(LS.get("user"))
+  console.log('user', user)
   // const [stepItems, setStepItems] = useState([]);
   const [assesments, setAssesments] = useState([]);
   const router = useRouter();
@@ -17,7 +19,7 @@ const TrainingQuiz = () => {
   const loading = useSelector((state) => state.ui.loading);
   useEffect(() => {
     if (id) {
-      axios.get(`questions/${id}/?token=${LS.get("token")}`).then((res) => {
+      axios.get(`questions/${id}/`).then((res) => {
         setTraining(res.data);
       });
     }
@@ -42,8 +44,7 @@ const TrainingQuiz = () => {
   const submitTraining = (data) => {
     dispatch(UiActions.actions.setLoading(true));
     const ids = assesments.map(o => o.question_id)
-    const uiqueAssesments = assesments.filter(({question_id}, index) => !ids.includes(question_id, index + 1))
-    console.log('uiqueAssesments',filtered)
+    const uiqueAssesments = assesments.filter(({ question_id }, index) => !ids.includes(question_id, index + 1))
     const finalData = {
       training_id: parseInt(id),
       assessment: [
@@ -76,17 +77,46 @@ const TrainingQuiz = () => {
   console.log("assesments", assesments);
   console.log("current", current);
   return (
-    <div>
-      {training ? (
-        <>
-          <h1 className="lg center">
-            Assessment for training: {training?.training}
-          </h1>
-          <div
-            className="flex alignCenter"
-            style={{ gap: "100px", marginTop: "40px" }}
-          >
-            {/* <div status={{ flex: 0.4 }}>
+    user.type === "admin" ?
+      <Card title="Training Description" loading={training ? false : true}>
+        <Descriptions column={1}>
+          <Descriptions.Item label="Training title">{training?.training}</Descriptions.Item>
+
+        </Descriptions>
+
+        {
+          training && training.questions ?
+            <>
+              {
+                training.questions.map((value, index) => <Card style={{ marginTop: 10 }} key={index} size="small" title={`Question : ${value.question}`}>
+                  {
+                    value.options.map((option, index) => <p key={index}>{option.option}</p>)
+                  }
+
+                </Card>)
+              }
+            </>
+            : ''
+        }
+
+
+      </Card>
+      :
+      <div>
+        {training ? (
+          <>
+            <div>
+              {
+                training && training.questions.length ?
+                  <div>
+                    <h1 className="lg center">
+                      Assessment for training: {training?.training}
+                    </h1>
+                    <div
+                      className="flex alignCenter"
+                      style={{ gap: "100px", marginTop: "40px" }}
+                    >
+                      {/* <div status={{ flex: 0.4 }}>
               <Steps
                 current={current}
                 onChange={onChange}
@@ -94,101 +124,107 @@ const TrainingQuiz = () => {
                 items={stepItems}
               />
             </div> */}
-            <Button
-              style={{ width: "80px", flex: "0.2" }}
-              disabled={current == 0}
-              onClick={() => setCurrent(current - 1)}
-              type="primary"
-            >
-              Previous
-            </Button>
-            <div className="" style={{ flex: "0.6" }}>
-              <Form onFinish={submitTraining} form={form}>
-                <div className="bg-white p-lg flex alignCenter justifyCenter fColumn">
-                  <h2>
-                    {
-                      training?.questions?.filter(
-                        (ques) => ques.id == training.questions[current]?.id
-                      )[0]?.question
-                    }
-                  </h2>
-                  <div className="flex">
-                    {training?.questions
-                      .filter(
-                        (ques) => ques.id == training.questions[current]?.id
-                      )[0]
-                      ?.options.map((opt) => (
-                        <Form.Item
-                         required
-                          key={opt.id}
-                          name="option"
-                        >
-                          <Radio.Group
-                            required
-                            onChange={(o) => {
-                              const currentFormValues = form.getFieldsValue();
-                              if (current !== training.questions.length - 1) {
-                                setCurrent(current + 1);
+                      <Button
+                        style={{ width: "80px", flex: "0.2" }}
+                        disabled={current == 0 || loading}
+                        onClick={() => setCurrent(current - 1)}
+                        type="primary"
+                      >
+                        Previous
+                      </Button>
+                      <div className="" style={{ flex: "0.6" }}>
+                        <Form onFinish={submitTraining} form={form}>
+                          <div className="bg-white p-lg flex alignCenter justifyCenter fColumn">
+                            <h2>
+                              {
+                                training?.questions?.filter(
+                                  (ques) => ques.id == training.questions[current]?.id
+                                )[0]?.question
                               }
-                              setAssesments([
-                                ...assesments,
-                                {
-                                  question_id: training.questions.filter(
-                                    (ques) =>
-                                      ques.id == training.questions[current].id
-                                  )[0].id,
-                                  option_id: currentFormValues.option,
-                                },
-                              ]);
-                            }}
+                            </h2>
+                            <div className="flex">
+                              {training?.questions
+                                .filter(
+                                  (ques) => ques.id == training.questions[current]?.id
+                                )[0]
+                                ?.options.map((opt) => (
+                                  <Form.Item
+                                    required
+                                    key={opt.id}
+                                    name="option"
+                                  >
+                                    <Radio.Group
+                                      required
+                                      onChange={(o) => {
+                                        const currentFormValues = form.getFieldsValue();
+                                        if (current !== training.questions.length - 1) {
+                                          setCurrent(current + 1);
+                                        }
+                                        setAssesments([
+                                          ...assesments,
+                                          {
+                                            question_id: training.questions.filter(
+                                              (ques) =>
+                                                ques.id == training.questions[current].id
+                                            )[0].id,
+                                            option_id: currentFormValues.option,
+                                          },
+                                        ]);
+                                      }}
+                                    >
+                                      <Radio value={opt.id}>{opt.option}</Radio>
+                                    </Radio.Group>
+                                  </Form.Item>
+                                ))}
+                            </div>
+                          </div>
+                          <Button
+                            style={{}}
+                            className="mt-lg p-md"
+                            type="primary"
+                            disabled={loading || assesments.length < training.questions.length}
+                            htmlType="submit"
                           >
-                            <Radio value={opt.id}>{opt.option}</Radio>
-                          </Radio.Group>
-                        </Form.Item>
-                      ))}
+                            {loading ? <Spin /> : "Submit Training"}
+                          </Button>
+                        </Form>
+                      </div>
+                      <Button
+                        style={{ width: "80px", flex: "0.2" }}
+                        disabled={current == training.questions.length - 1}
+                        onClick={() => {
+                          const currentFormValues = form.getFieldsValue();
+                          if (current !== training.questions.length - 1) {
+                            setCurrent(current + 1);
+                          }
+                          if (currentFormValues.option) {
+                            setAssesments([
+                              ...assesments,
+                              {
+                                question_id: training.questions.filter(
+                                  (ques) => ques.id == training.questions[current].id
+                                )[0].id,
+                                option_id: currentFormValues.option,
+                              },
+                            ]);
+                          }
+                        }}
+                        type="primary"
+                      >
+                        Next
+                      </Button>
+                    </div>
                   </div>
-                </div>
-                <Button
-                  style={{}}
-                  className="mt-lg p-md"
-                  type="primary"
-                  disabled={loading || assesments.length < training.questions.length}
-                  htmlType="submit"
-                >
-                  {loading ? <Spin /> : "Submit Training"}
-                </Button>
-              </Form>
+                  :
+                  <Alert type="warning" description="No questions added for this training" />
+
+              }
             </div>
-            <Button
-              style={{ width: "80px", flex: "0.2" }}
-              disabled={current == training.questions.length - 1}
-              onClick={() => {
-                const currentFormValues = form.getFieldsValue();
-                if (current !== training.questions.length - 1) {
-                  setCurrent(current + 1);
-                }
-                if(currentFormValues.option) {
-                  setAssesments([
-                    ...assesments,
-                    {
-                      question_id: training.questions.filter(
-                        (ques) => ques.id == training.questions[current].id
-                      )[0].id,
-                      option_id: currentFormValues.option,
-                    },
-                  ]);
-                }
-              }}
-              type="primary"
-            >
-              Next
-            </Button>
-          </div>
-        </>
-      ) : (
-        <Spin />
-      )}
-    </div>
+          </>
+        ) : (
+          <Spin />
+        )}
+      </div>
   );
 };
 

@@ -9,9 +9,7 @@ import 'antd/dist/antd.css';
 import '../styles/pages/addQuestions.css';
 import '../styles/pages/employeeList.css';
 import withAuth from '../hoc/withAuth';
-import axios from 'axios';
 
-axios.defaults.baseURL = "https://pythondemo123.herokuapp.com/v1/"
 
 function MyApp({ Component, pageProps }) {
 
