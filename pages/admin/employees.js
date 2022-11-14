@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import AssignTrainings from "../../components/forms/AssignTrainings";
 import EditEmployee from "../../components/forms/EditEmployee";
 import NewEmployee from "../../components/forms/NewEmployee";
-import LS from "../../utils/Ls";
+import headers from '../../utils/header';
 
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
@@ -21,13 +21,13 @@ const Employees = () => {
   }, []);
 
   const getEmployees = () => {
-    axios.get(`employee?token=${LS.get("token")}`).then((res) => {
+    axios.get(`employee`, headers).then((res) => {
       setEmployees(res.data);
     });
   }
 
   const deleteEmployee = (employee) => {
-    axios.delete(`employee/${employee.id}/?token=${LS.get("token")}`).then(() => {
+    axios.delete(`employee/${employee.id}/`, headers).then(() => {
       setEmployees([])
       getEmployees()
     })

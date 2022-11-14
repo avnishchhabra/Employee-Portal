@@ -1,7 +1,7 @@
 import { Button, Card, Form, Input, notification, Spin } from "antd";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import LS from "../utils/Ls";
+import headers from '../utils/header';
 import UiActions from "../redux/slices/UiSlice";
 import AppActions from "../redux/slices/AppSlice";
 import { useRouter } from "next/router";

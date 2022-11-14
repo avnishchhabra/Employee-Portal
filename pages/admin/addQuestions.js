@@ -1,7 +1,7 @@
 import { Button, Card, Form, Input, notification, Radio, Select } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import LS from "../../utils/Ls";
+import headers from '../../utils/header';
 import { PlusOutlined } from "@ant-design/icons";
 
 const AddQuestions = () => {
@@ -10,14 +10,14 @@ const AddQuestions = () => {
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
     else {
-      axios.get(`trainings?token=${LS.get("token")}`).then((res) => {
+      axios.get(`trainings`, headers).then((res) => {
         setTrainings(res.data);
       });
     }
   }, []);
   const addQuestions = (data) => {
     console.log("data", form);
-    axios.post(`questions/?token=${LS.get("token")}`, data).then((res) => {
+    axios.post(`questions/`, data, headers).then((res) => {
       notification.success({
         message: "Employee created successfully",
       });

@@ -3,8 +3,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import LS from "../../utils/Ls";
 import UiActions from "../../redux/slices/UiSlice";
+import headers from '../../utils/header';
 
 const TrainingQuiz = () => {
   const [training, setTraining] = useState();
@@ -17,7 +17,7 @@ const TrainingQuiz = () => {
   const loading = useSelector((state) => state.ui.loading);
   useEffect(() => {
     if (id) {
-      axios.get(`questions/${id}/?token=${LS.get("token")}`).then((res) => {
+      axios.get(`questions/${id}/`, headers).then((res) => {
         setTraining(res.data);
       });
     }
@@ -58,7 +58,7 @@ const TrainingQuiz = () => {
     };
 
     axios
-      .post(`trainings/assessment?token=${LS.get("token")}`, finalData)
+      .post(`trainings/assessment`, finalData, headers)
       .then((res) => {
         console.log("ressss", res);
         dispatch(UiActions.actions.setLoading(false));

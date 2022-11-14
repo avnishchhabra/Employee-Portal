@@ -2,14 +2,14 @@ import { Button, Table } from "antd";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import LS from "../utils/Ls";
+import headers from '../utils/header';
 import moment from "moment";
 
 const Home = () => {
   const [trainings, setTrainings] = useState([]);
   const router = useRouter();
   const getTrainings = () => {
-    axios.get(`trainings?token=${LS.get("token")}`).then((res) => {
+    axios.get(`trainings`, headers).then((res) => {
       let tempData = [];
       res.data.map((data) =>
         tempData.push({ ...data, status: data.status ? "Active" : "Inactive" })

@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import RaiseGrievance from '../components/forms/RaiseGrievance'
 import GrievanceColumns from '../utils/columns/GrievanceColumns'
-import LS from '../utils/Ls'
+import headers from '../utils/header';
 
 const Grievance = () => {
   const [grievances , setGrievances] = useState()
@@ -11,7 +11,7 @@ const Grievance = () => {
   useEffect(() => {
     getGrievances()
   } , [])
-  const getGrievances = () => axios.get(`grievances/?token=${LS.get('token')}`).then(res => setGrievances(res.data))
+  const getGrievances = () => axios.get(`grievances/`, headers).then(res => setGrievances(res.data))
   return (
     <>
     {raiseGrievance && <RaiseGrievance getGrievances={getGrievances} raiseGrievance={raiseGrievance} setRaiseGrievance={setRaiseGrievance} />}

@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import RaiseHazard from '../components/forms/RaiseHazard'
 import HazardColumns from '../utils/columns/HazardColumns'
-import LS from '../utils/Ls'
+import headers from '../utils/header';
 
 const Hazard = () => {
   const [hazards , setHazards] = useState()
@@ -11,7 +11,7 @@ const Hazard = () => {
   useEffect(() => {
    getHazards()
   } , [])
-  const getHazards = () => axios.get(`hazards/?token=${LS.get('token')}`).then(res => setHazards(res.data))
+  const getHazards = () => axios.get(`hazards/`, headers).then(res => setHazards(res.data))
   return (
     <>
     {raiseHazard && <RaiseHazard getHazards={getHazards} raiseHazard={raiseHazard} setRaiseHazard={setRaiseHazard} />}

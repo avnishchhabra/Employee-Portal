@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import EditTraining from "../../components/forms/EditTraining";
 import NewTraining from "../../components/forms/NewTraining";
-import LS from "../../utils/Ls";
+import headers from '../../utils/header';
 
 const TrainingList = () => {
   const [trainings, setTrainings] = useState([]);
@@ -20,7 +20,7 @@ const TrainingList = () => {
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
     else {
-      axios.get(`trainings?token=${LS.get("token")}`).then((res) => {
+      axios.get(`trainings`, headers).then((res) => {
         setTrainings(res.data);
       });
     }
