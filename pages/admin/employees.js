@@ -88,7 +88,7 @@ const Employees = () => {
       {isEditing && <EditEmployee isEditing={isEditing} employeeToEdit={employeeToEdit} handleCancel={() => {
         setIsEditing(false)
         setEmployeeToEdit(null)
-      }} />}
+      }} getEmployees={getEmployees} setIsEditing={setIsEditing} />}
       <div className="flex justifyBetween mb-lg">
         <h2>Employees</h2>
         <Button onClick={() => setIsModalOpen(true)} type="primary">

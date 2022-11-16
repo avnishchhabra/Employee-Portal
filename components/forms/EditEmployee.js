@@ -1,4 +1,4 @@
-import { Button, Drawer, Form, Input, Modal, Select, Spin } from "antd";
+import { Button, Drawer, Form, Input, Modal, notification, Select, Spin } from "antd";
 import axios from "../../hoc/axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -6,22 +6,28 @@ import { useSelector } from "react-redux";
 import LS from "../../utils/Ls";
 import CustomDrawer from "../CustomDrawer";
 
-const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
+const EditEmployee = ({ isEditing, handleCancel, employeeToEdit, getEmployees, setIsEditing }) => {
   const [form] = Form.useForm();
   const loading = useSelector((state) => state.ui.loading);
   const router = useRouter();
   const [departments, setDepartments] = useState([]);
   const editEmployee = (data) => {
     const formData = form.getFieldsValue()
-    axios.patch(`employee/${employeeToEdit.id}/?token=${LS.get("token")}`, formData)
+    axios.patch(`employee/${employeeToEdit.id}/`, formData).then(response => {
+      if (response) {
+        notification.success({
+          message: 'Employee updated successfully'
+        })
+        getEmployees()
+        setIsEditing(false)
+      }
+    })
   };
   useEffect(() => {
-    if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
-    else {
-      axios
-        .get(`/departments?token=${LS.get("token")}`)
-        .then((res) => setDepartments(res.data));
-    }
+    axios
+      .get(`/departments?token=${LS.get("token")}`)
+      .then((res) => setDepartments(res.data));
+
   }, []);
   return (
     <CustomDrawer
@@ -103,7 +109,7 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit }) => {
             Cancel
           </Button>
           <Button key="add" htmlType="submit" type="primary">
-            {loading ? <Spin /> : "Edit"}
+            {loading ? <Spin /> : "Update"}
           </Button>
         </div>
       </Form>

@@ -23,12 +23,10 @@ const RaiseHazard = ({ title, setRaiseHazard, raiseHazard, getHazards }) => {
     })
   };
   useEffect(() => {
-    if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
-    else {
-      axios
-        .get(`/departments?token=${LS.get("token")}`)
-        .then((res) => setDepartments(res.data));
-    }
+    axios
+      .get(`/departments?token=${LS.get("token")}`)
+      .then((res) => setDepartments(res.data));
+
   }, []);
   const loading = useSelector((state) => state.ui.loading);
   return (

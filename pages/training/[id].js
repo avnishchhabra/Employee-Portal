@@ -107,7 +107,7 @@ const TrainingQuiz = () => {
           <>
             <div>
               {
-                training && training.questions.length ?
+                training && training.questions && training.questions.length ?
                   <div>
                     <h1 className="lg center">
                       Assessment for training: {training?.training}

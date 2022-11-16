@@ -1,5 +1,5 @@
 import { Button, Card, Form, Input, notification, Spin } from "antd";
-import axios from "axios";
+import axios from "../hoc/axios";
 import { useDispatch, useSelector } from "react-redux";
 import LS from "../utils/Ls";
 import UiActions from "../redux/slices/UiSlice";

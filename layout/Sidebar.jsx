@@ -100,6 +100,14 @@ const Sidebar = ({ setCollapsed }) => {
             >
               Grievances
             </Menu.Item>
+
+            <Menu.Item
+              onClick={() => router.push("/admin/departments")}
+              key={36}
+              icon={<InfoCircleOutlined />}
+            >
+              Departments
+            </Menu.Item>
           </Menu.SubMenu>
         )}
       </Menu>
