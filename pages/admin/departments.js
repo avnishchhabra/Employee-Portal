@@ -1,4 +1,4 @@
-import { Button, Table, Form, Input } from "antd";
+import { Button, Table, Form, Input, notification } from "antd";
 import axios from "../../hoc/axios";
 import React, { useEffect, useState } from "react"
 import CustomDrawer from '../../components/CustomDrawer'
@@ -43,14 +43,7 @@ const Grievance = () => {
                 message: "Department added successfully",
             });
             dispatch(UiActions.actions.setLoading(false));
-            setRaiseGrievance(false)
-        }).catch(err => {
-            dispatch(UiActions.actions.setLoading(false));
-            errorNotification({
-                message: 'Error',
-                description: 'Something went wrong',
-                duration: 2,
-            })
+            setVisible(false)
         })
 
     }

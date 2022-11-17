@@ -20,19 +20,18 @@ const Hazards = () => {
   const submit = (data) => {
     setLoading(true)
     axios.patch(`hazards/${id}`, data).then((res) => {
-      if (response) {
-        setLoading(false)
-        notification.success({
-          message: "Hazard resolved successfully",
-        });
-      }
+      console.log(res, 'res')
+      setLoading(false)
+      notification.success({
+        message: "Hazard resolved successfully",
+      });
+      setVisible(false)
+      getHazards()
       form.resetFields();
       getHazards()
     }).catch(error => {
       setLoading(false)
-      notification.error({
-        message: "Something went wrong",
-      });
+
     })
   }
 

@@ -9,6 +9,7 @@ import LS from "../../utils/Ls";
 
 const TrainingList = () => {
   const [trainings, setTrainings] = useState([]);
+  const [loading, setLoading] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editing, setEditing] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -20,8 +21,10 @@ const TrainingList = () => {
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
     else {
+      setLoading(true)
       axios.get(`trainings?token=${LS.get("token")}`).then((res) => {
         setTrainings(res.data);
+        setLoading(false)
       });
     }
   }, []);
@@ -84,7 +87,7 @@ const TrainingList = () => {
         </Button>
       </div>
       <Table
-        loading={!trainings.length}
+        loading={loading}
         dataSource={dataSource}
         columns={columns}
         pagination={false}

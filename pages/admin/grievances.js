@@ -23,12 +23,13 @@ const Grievance = () => {
   const submit = (data) => {
     setLoading(true)
     axios.patch(`grievances/${id}`, data).then((res) => {
-      if (response) {
-        setLoading(false)
-        notification.success({
-          message: "Grievance resolved successfully",
-        });
-      }
+
+      setLoading(false)
+      notification.success({
+        message: "Grievance resolved successfully",
+      });
+      setVisible(false)
+
       form.resetFields();
       getGrievances()
     }).catch(error => {

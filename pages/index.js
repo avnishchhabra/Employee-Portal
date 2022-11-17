@@ -7,14 +7,17 @@ import LS from "../utils/Ls";
 
 const Home = () => {
   const [trainings, setTrainings] = useState([]);
+  const [loading, setLoading] = useState([]);
   const user = JSON.parse(LS.get("user"))
   const router = useRouter();
   const getTrainings = () => {
+    setLoading(true)
     axios.get(`trainings`).then((res) => {
       let tempData = [];
       res.data.map((data) =>
         tempData.push({ ...data, status: data.status ? "Active" : "Inactive" })
       );
+      setLoading(false)
       setTrainings(tempData);
     });
   };
@@ -84,7 +87,7 @@ const Home = () => {
   ];
   return (
     <Table
-      loading={!trainings.length}
+      loading={loading}
       columns={columns}
       dataSource={trainings}
       rowKey="id"

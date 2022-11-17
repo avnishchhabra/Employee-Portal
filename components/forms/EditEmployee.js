@@ -60,6 +60,14 @@ const EditEmployee = ({ isEditing, handleCancel, employeeToEdit, getEmployees, s
         ]} label='Email' name="email">
           <Input placeholder="Enter email" />
         </Form.Item>
+        <Form.Item rules={[
+          {
+            required: true,
+            message: "Please enter email",
+          },
+        ]} label='Employee code' name="employee_code">
+          <Input placeholder="Enter emp code" />
+        </Form.Item>
         {/* <Form.Item rules={[
             {
               required: true,

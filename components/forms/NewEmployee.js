@@ -32,7 +32,7 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
   const addEmployee = (data) => {
     dispatch(UiActions.actions.setLoading(true));
     const formData = { ...form.getFieldsValue() };
-    axios.post(`/employee/?token=${LS.get("token")}`, formData).then(() => {
+    axios.post(`/employee/`, formData).then(() => {
       form.resetFields();
       successNotification({
         message: 'Success!!',
@@ -118,7 +118,7 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
         <Form.Item
           rules={[
             {
-              required: !automaticCode,
+              required: true,
               message: "Please enter employee code",
             },
           ]}
@@ -127,13 +127,7 @@ const NewEmployee = ({ isModalOpen, handleCancel, getEmployees }) => {
         >
           <Input disabled={automaticCode} placeholder="Enter employee code" />
         </Form.Item>
-        <div className="flex alignCenter gap-md" style={{ marginTop: "-15px" }}>
-          <p className=" mZero">Automatic Employee Code</p>
-          <Checkbox
-            checked={automaticCode}
-            onChange={(e) => setAutomaticCode(e.target.checked)}
-          />
-        </div>
+
         <Form.Item
           rules={[
             {
