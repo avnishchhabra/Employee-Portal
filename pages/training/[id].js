@@ -102,7 +102,7 @@ const TrainingQuiz = () => {
 
       </Card>
       :
-      <div>
+      <Card title="Training" extra={<a target="_blank" href="https://drive.google.com/drive/folders/1BSFXMvS2mFHHRoX81WUQgp_tHiRUcPot?usp=sharing" rel="noreferrer">View Training modules</a>}>
         {training ? (
           <>
             <div>
@@ -224,7 +224,7 @@ const TrainingQuiz = () => {
         ) : (
           <Spin />
         )}
-      </div>
+      </Card>
   );
 };
 
