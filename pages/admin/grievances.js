@@ -60,11 +60,11 @@ const Grievance = () => {
           ...GrievanceColumns,
           {
             title: "Take action",
-            render: (text, row, value) => <p onClick={() => {
+            render: (text, row, value) => <Button disabled={row.status !== "pending" ? true : false} type="link" onClick={() => {
               setVisible(true)
               setId(row.id)
 
-            }} className="link pointer">Take action</p>,
+            }} className="link pointer">Take action</Button>,
           },
         ]}
         dataSource={grievances}

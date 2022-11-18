@@ -12,6 +12,7 @@ const Employees = () => {
   const [isEditing, setIsEditing] = useState(false)
   const [employeeToEdit, setEmployeeToEdit] = useState(null)
   const [trainee, setTrainee] = useState(false)
+  const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
@@ -20,14 +21,21 @@ const Employees = () => {
     }
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`/departments/`)
+      .then((res) => setDepartments(res.data));
+
+  }, []);
+
   const getEmployees = () => {
-    axios.get(`employee?token=${LS.get("token")}`).then((res) => {
+    axios.get(`employee/`).then((res) => {
       setEmployees(res.data);
     });
   }
 
   const deleteEmployee = (employee) => {
-    axios.delete(`employee/${employee.id}/?token=${LS.get("token")}`).then(() => {
+    axios.delete(`employee/${employee.id}/`).then(() => {
       setEmployees([])
       getEmployees()
     })
@@ -47,6 +55,12 @@ const Employees = () => {
       title: "Employee code",
       dataIndex: "employee_code",
       key: "employee_code",
+    },
+    {
+      title: "Department",
+      dataIndex: "department_id",
+      key: "department_id",
+      render: (department_id) => departments.length ? departments.filter(department => department.id === department_id)[0].name : ''
     },
     {
       title: "Email",

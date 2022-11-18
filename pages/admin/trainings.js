@@ -44,12 +44,6 @@ const TrainingList = () => {
       dataIndex: "title",
       key: "title",
     },
-
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-    },
     {
       title: "Duration",
       dataIndex: "duration_window",
@@ -60,6 +54,20 @@ const TrainingList = () => {
       dataIndex: "status",
       key: "status",
       render: (status) => status ? 'Active' : 'Inactive'
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      key: "actions",
+      render: (text, training, value) => (
+        <Button
+          onClick={() => router.push(`/training/${training.id}`)}
+          type="primary"
+          disabled={!moment().isAfter(training.start_date)}
+        >
+          View
+        </Button>
+      ),
     },
 
   ];
@@ -91,6 +99,10 @@ const TrainingList = () => {
         dataSource={dataSource}
         columns={columns}
         pagination={false}
+        rowKey="id"
+        expandable={{
+          expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+        }}
       />
     </>
   );

@@ -12,9 +12,9 @@ const Home = () => {
   const router = useRouter();
   const getTrainings = () => {
     setLoading(true)
-    axios.get(`trainings`).then((res) => {
+    axios.get(`trainings/assigned-trainings`).then((res) => {
       let tempData = [];
-      res.data.map((data) =>
+      res.data.data.map((data) =>
         tempData.push({ ...data, status: data.status ? "Active" : "Inactive" })
       );
       setLoading(false)
@@ -29,12 +29,6 @@ const Home = () => {
       title: "Name",
       dataIndex: "title",
       key: "title",
-
-    },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
 
     },
     {
@@ -91,6 +85,10 @@ const Home = () => {
       columns={columns}
       dataSource={trainings}
       rowKey="id"
+      expandable={{
+        expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+      }}
+      pagination={false}
     />
   );
 };
