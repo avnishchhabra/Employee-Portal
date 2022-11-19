@@ -47,11 +47,11 @@ const Hazards = () => {
       </div>
       <Table loading={!hazards} columns={[...HazardColumns, {
         title: "Take action",
-        render: (text, row, value) => <p className='link pointer' onClick={() => {
+        render: (text, row, value) => <Button type="link" disabled={row.status !== "pending" ? true : false} onClick={() => {
           setVisible(true)
           setId(row.id)
 
-        }}>Take action</p>
+        }}>Take action</Button>
       }]} dataSource={hazards} pagination={false} />
 
 

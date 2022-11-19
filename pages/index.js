@@ -1,4 +1,4 @@
-import { Button, Table } from "antd";
+import { Button, Space, Table } from "antd";
 import axios from "../hoc/axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ const Home = () => {
   const router = useRouter();
   const getTrainings = () => {
     setLoading(true)
-    axios.get(`trainings/assigned-trainings`).then((res) => {
+    axios.get(`trainings/assigned-trainings/`).then((res) => {
       let tempData = [];
       res.data.data.map((data) =>
         tempData.push({ ...data, status: data.status ? "Active" : "Inactive" })
@@ -69,13 +69,16 @@ const Home = () => {
       dataIndex: "actions",
       key: "actions",
       render: (_, training) => (
-        <Button
-          onClick={() => router.push(`/training/${training.id}`)}
-          type="primary"
-          disabled={!moment().isAfter(training.start_date)}
-        >
-          {user.type === "admin" ? 'View' : 'start'}
-        </Button>
+        <Space>
+          <Button
+            onClick={() => router.push(`/training/${training.id}`)}
+            type="primary"
+            disabled={!moment().isAfter(training.start_date)}
+          >
+            {user.type === "admin" ? 'View' : 'start'}
+          </Button>
+          <Button type="link" target="_blank" href="https://drive.google.com/drive/folders/1BSFXMvS2mFHHRoX81WUQgp_tHiRUcPot?usp=sharing" rel="noreferrer">View Training modules</Button>
+        </Space>
       ),
     },
   ];

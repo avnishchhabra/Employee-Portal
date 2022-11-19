@@ -78,7 +78,7 @@ const TrainingQuiz = () => {
   console.log("current", current);
   return (
     user.type === "admin" ?
-      <Card title="Training Description" loading={training ? false : true}>
+      <Card title="Training Description" extra={<a target="_blank" href="https://drive.google.com/drive/folders/1BSFXMvS2mFHHRoX81WUQgp_tHiRUcPot?usp=sharing" rel="noreferrer">View Training modules</a>} loading={training ? false : true}>
         <Descriptions column={1}>
           <Descriptions.Item label="Training title">{training?.training}</Descriptions.Item>
 

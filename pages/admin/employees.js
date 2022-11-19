@@ -1,5 +1,6 @@
 import { Button, Space, Table } from "antd";
 import axios from "../../hoc/axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import AssignTrainings from "../../components/forms/AssignTrainings";
 import EditEmployee from "../../components/forms/EditEmployee";
@@ -12,7 +13,8 @@ const Employees = () => {
   const [isEditing, setIsEditing] = useState(false)
   const [employeeToEdit, setEmployeeToEdit] = useState(null)
   const [trainee, setTrainee] = useState(false)
-  const [departments, setDepartments] = useState([]);
+  const router = useRouter()
+
 
   useEffect(() => {
     if (JSON.parse(LS.get("user")).type != "admin") router.push("/");
@@ -21,12 +23,7 @@ const Employees = () => {
     }
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(`/departments/`)
-      .then((res) => setDepartments(res.data));
 
-  }, []);
 
   const getEmployees = () => {
     axios.get(`employee/`).then((res) => {
@@ -58,9 +55,8 @@ const Employees = () => {
     },
     {
       title: "Department",
-      dataIndex: "department_id",
-      key: "department_id",
-      render: (department_id) => departments.length ? departments.filter(department => department.id === department_id)[0].name : ''
+      dataIndex: "department",
+      key: "department",
     },
     {
       title: "Email",
@@ -85,6 +81,14 @@ const Employees = () => {
           <Button type="link" disabled={employee.type === "admin" ? true : false} onClick={() => {
             setTrainee(employee)
           }} className="link pointer">Assign Trainings</Button>
+
+          <Button
+            type="link"
+            onClick={() => router.push(`/employees/${employee.id}`)}
+
+          >
+            View Assigned Trainings
+          </Button>
         </Space>
       ),
     },
